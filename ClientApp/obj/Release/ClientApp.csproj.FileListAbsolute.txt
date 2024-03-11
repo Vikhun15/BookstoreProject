@@ -1,0 +1,15 @@
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\bin\Release\ClientApp.exe.config
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\bin\Release\ClientApp.exe
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\bin\Release\ClientApp.pdb
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.csproj.AssemblyReference.cache
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\MainWindow.g.cs
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\App.g.cs
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp_MarkupCompile.cache
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp_MarkupCompile.lref
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\MainWindow.baml
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.g.resources
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.Properties.Resources.resources
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.csproj.GenerateResource.cache
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.csproj.CoreCompileInputs.cache
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.exe
+C:\Users\okvik\Documents\Prog_Projects\BookstoreProject\ClientApp\obj\Release\ClientApp.pdb
