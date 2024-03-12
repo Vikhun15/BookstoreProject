@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "login.h"
 #include "addwindow.h"
+#include "cashregisterwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,17 +18,22 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    MainWindow(bool loggedIn, QString username,QWidget *parent = nullptr);
     ~MainWindow();
     Login* login;
     AddWindow* addWindow;
+    bool loggedIn;
+    void ChangeData(bool loggedIn, QString username);
 
 private:
     Ui::MainWindow *ui;
+    CashRegisterWindow *window;
     QList<int> ids;
     QList<Book*> books;
     void SyncIds();
     void SyncTable();
     void WriteCSV(std::string path);
+    void Setup();
     QString dir;
     int selectedRowNum;
 private slots:

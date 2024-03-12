@@ -4,6 +4,7 @@
 #include "../Header_files/book.h"
 #include "../Header_files/addwindow.h"
 #include "../Header_files/editwindow.h"
+#include "../Header_files/cashregisterwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <fstream>
@@ -13,12 +14,40 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    loggedIn = false;
+    Setup();
+}
 
+MainWindow::MainWindow(bool loggedIn, QString username, QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    MainWindow::loggedIn = loggedIn;
+    ui->username->setText(username);
+    Setup();
+}
+
+void MainWindow::Setup(){
 
     this->setStyleSheet("QPushButton#syncBtn {background-color:blue; color:white;}QPushButton#syncBtn:pressed {background-color:rgb(0,120,255);}QPushButton#syncBtn:hover:!pressed {background-color:darkblue;}");
 
-    login = new Login(true, this);
-    login->setModal(true);
+    window = new CashRegisterWindow(true, this);
+    window->hide();
+    /*
+    bool cRegister = true;
+    if(cRegister){
+        window = new CashRegisterWindow(this);
+        window->setAttribute(Qt::WA_DeleteOnClose);
+        window->show();
+        hide();
+        setVisible(false);
+    }
+    */
+    if(!loggedIn){
+        login = new Login(!loggedIn, this);
+        login->setModal(true);
+    }
 
     ui->removeBtn->setEnabled(false);
 
@@ -90,9 +119,11 @@ MainWindow::MainWindow(QWidget *parent)
     }
     SyncIds();
     SyncTable();
+    if(!loggedIn){
+        login->open();
+    }
 
 
-    login->open();
 }
 
 void MainWindow::SyncIds(){
@@ -122,10 +153,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::changeUsername(){
     ui->username->setText(login->getUsername());
+    loggedIn = true;
 }
 
 void MainWindow::logout_click(){
-    login = new Login(false, this);
+    login = new Login(!loggedIn, this);
     login->setModal(true);
 
     connect(login, SIGNAL(passUsername()), this, SLOT(changeUsername()));
@@ -134,7 +166,14 @@ void MainWindow::logout_click(){
 }
 
 void MainWindow::mode_click(){
-    //TODO
+    window->ChangeData(loggedIn, ui->username->text(), books);
+    window->show();
+    this->hide();
+}
+
+void MainWindow::ChangeData(bool loggedIn, QString username){
+    MainWindow::loggedIn = loggedIn;
+    ui->username->setText(username);
 }
 
 void MainWindow::add_click(){
