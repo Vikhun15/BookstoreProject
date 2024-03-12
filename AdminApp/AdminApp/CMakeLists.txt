@@ -24,6 +24,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         Header_files/login.h Source_files/login.cpp UI_files/login.ui
+        Header_files/addwindow.h Source_files/addwindow.cpp UI_files/addwindow.ui
+        Header_files/book.h Source_files/book.cpp
+        Header_files/editwindow.h Source_files/editwindow.cpp UI_files/editwindow.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET AdminApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
