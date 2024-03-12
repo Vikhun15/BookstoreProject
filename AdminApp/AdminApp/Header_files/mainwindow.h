@@ -5,6 +5,7 @@
 #include "login.h"
 #include "addwindow.h"
 #include "cashregisterwindow.h"
+#include "../database.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,6 +25,7 @@ public:
     AddWindow* addWindow;
     bool loggedIn;
     void ChangeData(bool loggedIn, QString username);
+    DataBase db;
 
 private:
     Ui::MainWindow *ui;

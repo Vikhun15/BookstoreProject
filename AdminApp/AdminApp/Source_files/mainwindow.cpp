@@ -5,6 +5,7 @@
 #include "../Header_files/addwindow.h"
 #include "../Header_files/editwindow.h"
 #include "../Header_files/cashregisterwindow.h"
+#include "../database.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <fstream>
@@ -32,18 +33,16 @@ void MainWindow::Setup(){
 
     this->setStyleSheet("QPushButton#syncBtn {background-color:blue; color:white;}QPushButton#syncBtn:pressed {background-color:rgb(0,120,255);}QPushButton#syncBtn:hover:!pressed {background-color:darkblue;}");
 
-    window = new CashRegisterWindow(true, this);
+    window = new CashRegisterWindow(true,this);
     window->hide();
-    /*
-    bool cRegister = true;
+
+    bool cRegister = (db.GetSetting() != "manage");
+
     if(cRegister){
         window = new CashRegisterWindow(this);
-        window->setAttribute(Qt::WA_DeleteOnClose);
         window->show();
-        hide();
-        setVisible(false);
+        this->hide();
     }
-    */
     if(!loggedIn){
         login = new Login(!loggedIn, this);
         login->setModal(true);
@@ -119,7 +118,7 @@ void MainWindow::Setup(){
     }
     SyncIds();
     SyncTable();
-    if(!loggedIn){
+    if(!loggedIn && !cRegister){
         login->open();
     }
 
@@ -167,6 +166,7 @@ void MainWindow::logout_click(){
 
 void MainWindow::mode_click(){
     window->ChangeData(loggedIn, ui->username->text(), books);
+    db.SetSetting("register");
     window->show();
     this->hide();
 }

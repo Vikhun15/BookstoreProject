@@ -139,6 +139,7 @@ void CashRegisterWindow::logout_click(){
 void CashRegisterWindow::mode_click(){
     ((MainWindow*)parent())->ChangeData(loggedIn, ui->username->text());
     ((MainWindow*)parent())->show();
+    ((MainWindow*)parent())->db.SetSetting("manage");
     this->hide();
 }
 
