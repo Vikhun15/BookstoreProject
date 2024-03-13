@@ -40,6 +40,7 @@ private:
     void Setup();
     QString dir;
     int selectedRowNum;
+    QList<int> selectedRows;
 public slots:
     void refresh_table();
 private slots:

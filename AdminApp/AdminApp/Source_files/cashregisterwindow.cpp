@@ -3,6 +3,7 @@
 #include "../Header_files/mainwindow.h"
 #include <QTableWidget>
 #include <QMessageBox>
+#include <QDebug>
 
 CashRegisterWindow::CashRegisterWindow(bool loggedIn, QString username, QWidget *parent)
     : QMainWindow(parent)
@@ -209,11 +210,21 @@ void CashRegisterWindow::calculateTotal(){
 
 void CashRegisterWindow::selectedChanged(){
     if(ui->dataTable->selectionModel()->hasSelection() || ui->itemsList->selectionModel()->hasSelection()){
+        selectedRows.clear();
+        selectedItems.clear();
         if(ui->dataTable->selectionModel()->hasSelection()){
+            ui->itemsList->clearSelection();
             selectedRowNum = ui->dataTable->selectionModel()->selectedRows().at(0).row();
+            for(int i = 0; i < ui->dataTable->selectionModel()->selectedRows().length(); i++){
+                selectedRows.append(ui->dataTable->selectionModel()->selectedRows().at(i).row());
+            }
         }
         if(ui->itemsList->selectionModel()->hasSelection()){
+            ui->dataTable->clearSelection();
             selectedListNum = ui->itemsList->selectionModel()->selectedRows().at(0).row();
+            for(int i = 0; i < ui->itemsList->selectionModel()->selectedRows().length(); i++){
+                selectedItems.append(ui->itemsList->selectionModel()->selectedRows().at(i).row());
+            }
         }
         ui->removeBtn->setEnabled(true);
         ui->addBtn->setEnabled(true);
@@ -226,111 +237,9 @@ void CashRegisterWindow::selectedChanged(){
 
 void CashRegisterWindow::add_click(){
     if(ui->dataTable->selectionModel()->hasSelection()){
-        int num = ui->dataTable->item(selectedRowNum, 6)->text().toInt();
-        QString title = ui->dataTable->item(selectedRowNum, 1)->text();
-        int index = 0;
-        for(int i = 0; i < books.length(); i++){
-            if(books[i]->title == title){
-                index = i;
-                break;
-            }
-        }
-        if(num != 0){
-            if(num - 1 == 0){
-                ui->dataTable->item(selectedRowNum, 5)->setText("No");
-            }
-            ui->dataTable->item(selectedRowNum, 6)->setText(QString::number(num-1));
-            books[index]->quantity--;
-            bool found = false;
-            for(int i = 0; i < ui->itemsList->rowCount(); i++){
-                if(ui->itemsList->item(i, 0)->text() == title){
-                    found = true;
-                    ui->itemsList->item(i, 2)->setText(QString::number(ui->itemsList->item(i, 2)->text().toInt()+1));
-                }
-            }
-            if(!found){
-                ui->itemsList->insertRow(ui->itemsList->rowCount());
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 1)->text()));
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 4)->text()));
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
-            }
-        }
-    }
-    if(ui->itemsList->selectionModel()->hasSelection()){
-        int row = 0;
-        int num = 0;
-        QString title = ui->itemsList->item(selectedListNum, 0)->text();
-        int index = 0;
-        for(int i = 0; i < books.length(); i++){
-            if(books[i]->title == title){
-                index = i;
-                break;
-            }
-        }
-        for(int i = 0; i < ui->dataTable->rowCount(); i++){
-            if(ui->dataTable->item(i, 1)->text() == title){
-                num = ui->dataTable->item(i, 6)->text().toInt();
-                row = i;
-                break;
-            }
-        }
-        if(num != 0){
-            if(num - 1 == 0){
-                ui->dataTable->item(row, 5)->setText("No");
-            }
-            ui->dataTable->item(row, 6)->setText(QString::number(num-1));
-            books[index]->quantity--;
-            bool found = false;
-            for(int i = 0; i < ui->itemsList->rowCount(); i++){
-                if(ui->itemsList->item(i, 0)->text() == title){
-                    found = true;
-                    ui->itemsList->item(i, 2)->setText(QString::number(ui->itemsList->item(i, 2)->text().toInt()+1));
-                }
-            }
-            if(!found){
-                ui->itemsList->insertRow(ui->itemsList->rowCount());
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 1)->text()));
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 4)->text()));
-                ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
-            }
-        }
-    }
-    calculatePrice();
-    calculateTotal();
-}
-
-void CashRegisterWindow::remove_click(){
-    if(ui->itemsList->selectionModel()->hasSelection()){
-        int num = ui->itemsList->item(selectedListNum, 2)->text().toInt();
-        QString title = ui->itemsList->item(selectedListNum, 0)->text();
-        int index = 0;
-        for(int i = 0; i < books.length(); i++){
-            if(books[i]->title == title){
-                index = i;
-                break;
-            }
-        }
-        if(num - 1 == 0){
-            ui->itemsList->removeRow(selectedListNum);
-        }
-        else{
-            ui->itemsList->item(selectedRowNum, 2)->setText(QString::number(num-1));
-        }
-        for(int i = 0; i < ui->dataTable->rowCount(); i++){
-            if(ui->dataTable->item(i, 1)->text() == title){
-                if(ui->dataTable->item(i, 5)->text() == "No"){
-                    ui->dataTable->item(i, 5)->setText("Yes");
-                }
-                ui->dataTable->item(i, 6)->setText(QString::number(ui->dataTable->item(i, 6)->text().toInt()+1));
-                books[index]->quantity--;
-            }
-        }
-    }
-    if(ui->dataTable->selectionModel()->hasSelection()){
-        if(ui->itemsList->rowCount() > 0){
+        if(selectedRows.length() <= 1){
+            int num = ui->dataTable->item(selectedRowNum, 6)->text().toInt();
             QString title = ui->dataTable->item(selectedRowNum, 1)->text();
-            int row = 0;
-            int num = 0;
             int index = 0;
             for(int i = 0; i < books.length(); i++){
                 if(books[i]->title == title){
@@ -338,18 +247,166 @@ void CashRegisterWindow::remove_click(){
                     break;
                 }
             }
-            for(int i = 0;i < ui->itemsList->rowCount(); i++){
-                if(ui->itemsList->item(i,0)->text() == title){
-                    num = ui->itemsList->item(i, 2)->text().toInt();
+            if(num != 0){
+                if(num - 1 == 0){
+                    ui->dataTable->item(selectedRowNum, 5)->setText("No");
+                }
+                ui->dataTable->item(selectedRowNum, 6)->setText(QString::number(num-1));
+                books[index]->quantity--;
+                bool found = false;
+                for(int i = 0; i < ui->itemsList->rowCount(); i++){
+                    if(ui->itemsList->item(i, 0)->text() == title){
+                        found = true;
+                        ui->itemsList->item(i, 2)->setText(QString::number(ui->itemsList->item(i, 2)->text().toInt()+1));
+                    }
+                }
+                if(!found){
+                    ui->itemsList->insertRow(ui->itemsList->rowCount());
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 1)->text()));
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 4)->text()));
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < selectedRows.length(); i++){
+                int num = ui->dataTable->item(selectedRows[i], 6)->text().toInt();
+                QString title = ui->dataTable->item(selectedRows[i], 1)->text();
+                int index = 0;
+                for(int j = 0; j < books.length(); j++){
+                    if(books[j]->title == title){
+                        index = j;
+                        break;
+                    }
+                }
+                if(num != 0){
+                    if(num - 1 == 0){
+                        ui->dataTable->item(selectedRows[i], 5)->setText("No");
+                    }
+                    ui->dataTable->item(selectedRows[i], 6)->setText(QString::number(num-1));
+                    books[index]->quantity--;
+                    bool found = false;
+                    for(int j = 0; j < ui->itemsList->rowCount(); j++){
+                        if(ui->itemsList->item(j, 0)->text() == title){
+                            found = true;
+                            ui->itemsList->item(j, 2)->setText(QString::number(ui->itemsList->item(j, 2)->text().toInt()+1));
+                        }
+                    }
+                    if(!found){
+                        ui->itemsList->insertRow(ui->itemsList->rowCount());
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedRows[i], 1)->text()));
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedRows[i], 4)->text()));
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
+                    }
+                }
+            }
+        }
+    }
+    if(ui->itemsList->selectionModel()->hasSelection()){
+        if(selectedItems.length() <= 1){
+            int row = 0;
+            int num = 0;
+            QString title = ui->itemsList->item(selectedListNum, 0)->text();
+            int index = 0;
+            for(int i = 0; i < books.length(); i++){
+                if(books[i]->title == title){
+                    index = i;
+                    break;
+                }
+            }
+            for(int i = 0; i < ui->dataTable->rowCount(); i++){
+                if(ui->dataTable->item(i, 1)->text() == title){
+                    num = ui->dataTable->item(i, 6)->text().toInt();
                     row = i;
                     break;
                 }
             }
+            if(num != 0){
+                if(num - 1 == 0){
+                    ui->dataTable->item(row, 5)->setText("No");
+                }
+                ui->dataTable->item(row, 6)->setText(QString::number(num-1));
+                books[index]->quantity--;
+                bool found = false;
+                for(int i = 0; i < ui->itemsList->rowCount(); i++){
+                    if(ui->itemsList->item(i, 0)->text() == title){
+                        found = true;
+                        ui->itemsList->item(i, 2)->setText(QString::number(ui->itemsList->item(i, 2)->text().toInt()+1));
+                    }
+                }
+                if(!found){
+                    ui->itemsList->insertRow(ui->itemsList->rowCount());
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 1)->text()));
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedRowNum, 4)->text()));
+                    ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < selectedItems.length(); i++){
+                int row = 0;
+                int num = 0;
+                int index = 0;
+                QString title = ui->itemsList->item(selectedItems[i], 0)->text();
+                for(int j = 0; j < books.length(); j++){
+                    if(books[j]->title == title){
+                        index = j;
+                        break;
+                    }
+                }
+                for(int j = 0; j < ui->dataTable->rowCount(); j++){
+                    if(ui->dataTable->item(j, 1)->text() == title){
+                        num = ui->dataTable->item(j, 6)->text().toInt();
+                        row = j;
+                        break;
+                    }
+                }
+                if(num != 0){
+                    if(num - 1 == 0){
+                        ui->dataTable->item(row, 5)->setText("No");
+                    }
+                    ui->dataTable->item(row, 6)->setText(QString::number(num-1));
+                    books[index]->quantity--;
+                    bool found = false;
+                    for(int j = 0; j < ui->itemsList->rowCount(); j++){
+                        if(ui->itemsList->item(j, 0)->text() == title){
+                            found = true;
+                            ui->itemsList->item(j, 2)->setText(QString::number(ui->itemsList->item(j, 2)->text().toInt()+1));
+                            break;
+                        }
+                    }
+                    if(!found){
+                        ui->itemsList->insertRow(ui->itemsList->rowCount());
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 0, new QTableWidgetItem(ui->dataTable->item(selectedItems[i], 1)->text()));
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 1, new QTableWidgetItem(ui->dataTable->item(selectedItems[i], 4)->text()));
+                        ui->itemsList->setItem(ui->itemsList->rowCount()-1, 2, new QTableWidgetItem("1"));
+                    }
+                }
+            }
+        }
+
+    }
+    calculatePrice();
+    calculateTotal();
+}
+
+void CashRegisterWindow::remove_click(){
+    if(ui->itemsList->selectionModel()->hasSelection()){
+        if(selectedItems.length() <= 1){
+            int num = ui->itemsList->item(selectedListNum, 2)->text().toInt();
+            QString title = ui->itemsList->item(selectedListNum, 0)->text();
+            int index = 0;
+            for(int i = 0; i < books.length(); i++){
+                if(books[i]->title == title){
+                    index = i;
+                    break;
+                }
+            }
             if(num - 1 == 0){
-                ui->itemsList->removeRow(row);
+                ui->itemsList->removeRow(selectedListNum);
             }
             else{
-                ui->itemsList->item(selectedRowNum, 2)->setText(QString::number(num-1));
+                ui->itemsList->item(selectedListNum, 2)->setText(QString::number(num-1));
             }
             for(int i = 0; i < ui->dataTable->rowCount(); i++){
                 if(ui->dataTable->item(i, 1)->text() == title){
@@ -357,9 +414,147 @@ void CashRegisterWindow::remove_click(){
                         ui->dataTable->item(i, 5)->setText("Yes");
                     }
                     ui->dataTable->item(i, 6)->setText(QString::number(ui->dataTable->item(i, 6)->text().toInt()+1));
-                    books[index]->quantity++;
+                    books[index]->quantity--;
                 }
             }
+        }
+        else{
+            QList<int> rows;
+            for(int i = 0; i < selectedItems.length(); i++){
+                rows.append(selectedItems[i]);
+                int num = ui->itemsList->item(selectedItems[i], 2)->text().toInt();
+                QString title = ui->itemsList->item(selectedItems[i], 0)->text();
+                int index = 0;
+                for(int j = 0; j < books.length(); j++){
+                    if(books[j]->title == title){
+                        index = j;
+                        break;
+                    }
+                }
+                if(num - 1 > 0){
+                    ui->itemsList->item(selectedItems[i], 2)->setText(QString::number(num-1));
+                }
+                for(int j = 0; j < ui->dataTable->rowCount(); j++){
+                    if(ui->dataTable->item(j, 1)->text() == title){
+                        if(ui->dataTable->item(j, 5)->text() == "No"){
+                            ui->dataTable->item(j, 5)->setText("Yes");
+                        }
+                        ui->dataTable->item(j, 6)->setText(QString::number(ui->dataTable->item(j, 6)->text().toInt()+1));
+                        books[index]->quantity--;
+                    }
+                }
+            }
+            for(int i = rows.length()-1; i >= 0; i--){
+                if(ui->itemsList->item(rows[i], 2)->text().toInt() - 1 == 0){
+                    ui->itemsList->removeRow(rows[i]);
+                }
+            }
+        }
+    }
+    if(ui->dataTable->selectionModel()->hasSelection()){
+        if(selectedRows.length() <= 1){
+            if(ui->itemsList->rowCount() > 0){
+                QString title = ui->dataTable->item(selectedRowNum, 1)->text();
+                bool contains = false;
+
+                for(int i = 0; i < ui->itemsList->rowCount(); i++){
+                    if(ui->itemsList->item(i, 0)->text() == title){
+                        contains = true;
+                        break;
+                    }
+                }
+                if(contains){
+                    int row = 0;
+                    int num = 0;
+                    int index = 0;
+                    for(int i = 0; i < books.length(); i++){
+                        if(books[i]->title == title){
+                            index = i;
+                            break;
+                        }
+                    }
+                    for(int i = 0;i < ui->itemsList->rowCount(); i++){
+                        if(ui->itemsList->item(i,0)->text() == title){
+                            num = ui->itemsList->item(i, 2)->text().toInt();
+                            row = i;
+                            break;
+                        }
+                    }
+                    if(num - 1 == 0){
+                        ui->itemsList->removeRow(row);
+                    }
+                    else{
+                        ui->itemsList->item(row, 2)->setText(QString::number(num-1));
+                    }
+                    for(int i = 0; i < ui->dataTable->rowCount(); i++){
+                        bool found = false;
+                        for(int j = 0; j < ui->itemsList->rowCount(); j++){
+                            if(ui->itemsList->item(j, 0)->text() == title){
+                                found = true;
+                            }
+                        }
+                        if(ui->dataTable->item(i, 1)->text() == title && found){
+                            if(ui->dataTable->item(i, 5)->text() == "No"){
+                                ui->dataTable->item(i, 5)->setText("Yes");
+                            }
+                            ui->dataTable->item(i, 6)->setText(QString::number(ui->dataTable->item(i, 6)->text().toInt()+1));
+                            books[index]->quantity++;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+                QList<int> rows;
+                QList<bool> changed;
+                for(int i = selectedRows.length()-1; i >= 0; i--){
+                    bool contains = false;
+                    for(int j = 0; j < ui->itemsList->rowCount(); j++){
+                        if(ui->dataTable->item(selectedRows[i], 1)->text() == ui->itemsList->item(j, 0)->text()){
+                            contains = true;
+                            break;
+                        }
+                    }
+                        if(contains){
+                            if(ui->itemsList->rowCount() > 0){
+                                QString title = ui->dataTable->item(selectedRows[i], 1)->text();
+                                int row = 0;
+                                int num = 0;
+                                int index = 0;
+                                for(int j = 0; j < books.length(); j++){
+                                    if(books[j]->title == title){
+                                        index = j;
+                                        break;
+                                    }
+                                }
+                                for(int j = 0;j < ui->itemsList->rowCount(); j++){
+                                    if(ui->itemsList->item(j,0)->text() == title){
+                                        num = ui->itemsList->item(j, 2)->text().toInt();
+                                        row = j;
+                                        rows.append(row);
+                                        break;
+                                    }
+                                }
+                                changed.append(num-1 > 0);
+                                if(num-1 > 0){
+                                    ui->itemsList->item(row, 2)->setText(QString::number(num-1));
+                                }
+                                else{
+                                    ui->itemsList->removeRow(row);
+                                }
+                                for(int j = 0; j < ui->dataTable->rowCount(); j++){
+                                    if(ui->dataTable->item(j, 1)->text() == title){
+                                        if(ui->dataTable->item(j, 5)->text() == "No"){
+                                            ui->dataTable->item(j, 5)->setText("Yes");
+                                        }
+                                        ui->dataTable->item(j, 6)->setText(QString::number(ui->dataTable->item(j, 6)->text().toInt()+1));
+                                        books[index]->quantity++;
+                                    }
+                                }
+                            }
+                        }
+                }
+
         }
     }
     calculatePrice();
@@ -367,11 +562,13 @@ void CashRegisterWindow::remove_click(){
 }
 
 void CashRegisterWindow::list_click(){
-    ui->dataTable->selectionModel()->clearSelection();
+    ui->dataTable->clearSelection();
+    selectedRows.clear();
 }
 
 void CashRegisterWindow::table_click(){
-    ui->itemsList->selectionModel()->clearSelection();
+    ui->itemsList->clearSelection();
+    selectedItems.clear();
 }
 
 void CashRegisterWindow::sync_click(){

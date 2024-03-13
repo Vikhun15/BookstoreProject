@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <fstream>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -97,7 +98,6 @@ void MainWindow::Setup(){
 
 
     books = pgdb->GetBooks();
-    //books.append(new Book(1, "The Great Gatsby", "Fiction", 4.2, 22.50, true, 15));
 
     ui->dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -107,27 +107,6 @@ void MainWindow::Setup(){
     ui->dataTable->horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
     ui->dataTable->horizontalHeader()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
 
-
-
-    /*
-    for(int i = 0; i < books.length(); i++){
-        ui->dataTable->setItem(i, 0, new QTableWidgetItem(QString::number(books[i]->id)));
-        ui->dataTable->setItem(i, 1, new QTableWidgetItem(books[i]->title));
-        ui->dataTable->setItem(i, 2, new QTableWidgetItem(books[i]->category));
-        ui->dataTable->setItem(i, 3, new QTableWidgetItem(QString::number(books[i]->rating)));
-        ui->dataTable->setItem(i, 4, new QTableWidgetItem(QString::number(books[i]->price)));
-
-        QString stock = "";
-        if(books[i]->inStock){
-            stock = "Yes";
-        }
-        else{
-            stock = "no";
-        }
-        ui->dataTable->setItem(i, 5, new QTableWidgetItem(stock));
-        ui->dataTable->setItem(i, 6, new QTableWidgetItem(QString::number(books[i]->quantity)));
-    }
-*/
     SyncTable();
     SyncIds();
     if(!loggedIn && !cRegister){
@@ -234,21 +213,47 @@ void MainWindow::edit_click(){
 }
 
 void MainWindow::remove_click(){
-    ids.removeAll(ui->dataTable->item(selectedRowNum,0)->text().toInt());
-    for(int i = 0; i <books.length(); i++){
-        if(books[i]->id == ui->dataTable->item(selectedRowNum,0)->text().toInt()){
-            books.removeAt(i);
+    if(selectedRows.length() <= 1){
+        ids.removeAll(ui->dataTable->item(selectedRowNum,0)->text().toInt());
+        for(int i = 0; i <books.length(); i++){
+            if(books[i]->id == ui->dataTable->item(selectedRowNum,0)->text().toInt()){
+                books.removeAt(i);
+            }
+        }
+        ui->dataTable->removeRow(selectedRowNum);
+    }
+    else{
+        QList<int> rows;
+        for(int i = 0; i < selectedRows.length(); i++){
+            ids.removeAll(ui->dataTable->item(selectedRows[i],0)->text().toInt());
+            for(int j = 0; j <books.length(); j++){
+                if(books[j]->id == ui->dataTable->item(selectedRows[i],0)->text().toInt()){
+                    books.removeAt(j);
+                }
+            }
+            rows.append(selectedRows[i]);
+        }
+        for(int i = rows.length()-1; i >= 0; i--){
+            ui->dataTable->removeRow(rows[i]);
         }
     }
-    ui->dataTable->removeRow(selectedRowNum);
 }
 
 void MainWindow::selectedChanged(){
     if(ui->dataTable->selectionModel()->hasSelection()){
         selectedRowNum = ui->dataTable->selectionModel()->selectedRows().at(0).row();
+        selectedRows.clear();
+        for(int i = 0; i < ui->dataTable->selectionModel()->selectedRows().length();i++){
+            selectedRows.append(ui->dataTable->selectionModel()->selectedRows().at(i).row());
+        }
         ui->removeBtn->setEnabled(true);
         ui->stockBtn->setEnabled(true);
-        ui->stockBtn->setText(books[selectedRowNum]->inStock ? "In stock" : "Out of stock");
+        if(selectedRows.length() > 1){
+            ui->stockBtn->setText("Change stock");
+        }
+        else{
+            ui->stockBtn->setText(books[selectedRowNum]->inStock ? "In stock" : "Out of stock");
+        }
         ui->editBtn->setEnabled(true);
     }
     else{
@@ -261,23 +266,40 @@ void MainWindow::selectedChanged(){
 
 void MainWindow::stock_click(){
 
-    bool result = false;
-    if(ui->stockBtn->text() == "Out of stock"){
-        result = true;
-        ui->stockBtn->setText("In stock");
+    if(selectedRows.length() <= 1){
+        bool result = false;
+        if(ui->stockBtn->text() == "Out of stock"){
+            result = true;
+            ui->stockBtn->setText("In stock");
+        }
+        else{
+            result = false;
+            ui->stockBtn->setText("Out of stock");
+        }
+
+        for(int i = 0; i < books.length(); i++){
+            if(books[i]->id == ui->dataTable->item(selectedRowNum,0)->text().toInt()){
+                books[i]->inStock = result;
+            }
+        }
+        ui->dataTable->item(selectedRowNum, 5)->setText(result ? "Yes" : "No");
+        ui->dataTable->selectRow(selectedRowNum);
     }
     else{
-        result = false;
-        ui->stockBtn->setText("Out of stock");
-    }
-
-    for(int i = 0; i < books.length(); i++){
-        if(books[i]->id == ui->dataTable->item(selectedRowNum,0)->text().toInt()){
-            books[i]->inStock = result;
+        for(int i = 0; i < selectedRows.length(); i++){
+            if(ui->dataTable->item(selectedRows[i], 5)->text() == "Yes"){
+                ui->dataTable->item(selectedRows[i], 5)->setText("No");
+            }
+            else{
+                ui->dataTable->item(selectedRows[i], 5)->setText("Yes");
+            }
+            for(int j = 0; j < books.length(); j++){
+                if(books[j]->id == ui->dataTable->item(selectedRows[i],0)->text().toInt()){
+                    books[j]->inStock = !books[j]->inStock;
+                }
+            }
         }
     }
-    ui->dataTable->item(selectedRowNum, 5)->setText(result ? "Yes" : "No");
-    ui->dataTable->selectRow(selectedRowNum);
 }
 
 void MainWindow::export_click(){

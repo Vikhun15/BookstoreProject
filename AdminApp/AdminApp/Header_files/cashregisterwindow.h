@@ -36,6 +36,8 @@ private:
     void Setup();
     QString dir;
     int selectedRowNum;
+    QList<int> selectedRows;
+    QList<int> selectedItems;
     int selectedListNum;
     void calculatePrice();
     bool checkDiscount();
