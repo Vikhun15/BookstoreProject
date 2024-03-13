@@ -2,14 +2,16 @@
 #include "../UI_files/ui_login.h"
 #include <QMessageBox>
 #include <QKeyEvent>
+#include "../Header_files/user.h"
 
 
-Login::Login(bool firstTime, QWidget *parent)
+Login::Login(bool firstTime, QList<User*> users, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Login)
 {
     first = firstTime;
     ui->setupUi(this);
+    Login::users = users;
     setWindowFlags(windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
     connect(ui->loginBtn, SIGNAL(clicked()), this, SLOT(clickLogin()));
     connect(this,SIGNAL(destroyed()),this->parent(),SLOT(close()));
@@ -65,10 +67,17 @@ void Login::closeEvent(QCloseEvent * event)
 
 bool Login::checkCreds()
 {
-    QString username = "user";
-    QString password = "pass";
-
-    return (ui->username->text() == username && ui->password->text() == password);
+    QString username = ui->username->text();
+    QString password = ui->password->text();
+    for(int i = 0; i < users.length(); i++){
+        if(users[i]->username == username && users[i]->password == password){
+            return true;
+        }
+        else if(users[i]->username == username && !(users[i]->password == password)){
+            return false;
+        }
+    }
+    return false;
 }
 
 

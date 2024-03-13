@@ -29,6 +29,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Header_files/editwindow.h Source_files/editwindow.cpp UI_files/editwindow.ui
         Header_files/cashregisterwindow.h Source_files/cashregisterwindow.cpp UI_files/cashregisterwindow.ui
         database.h database.cpp
+        Data/pgdatabase.h Data/pgdatabase.cpp
+        Data/libpq.dll Data/libiconv-2.dll Data/libintl-9.dll
+        Header_files/user.h Source_files/user.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

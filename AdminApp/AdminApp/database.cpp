@@ -6,10 +6,8 @@
 
 DataBase::DataBase() {
     QString path = "settings.db";
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE", "SQLiteConnection");
     db.setDatabaseName(path);
-    db.open();
-    printf(db.lastError().text().toLocal8Bit().data());
 
     CreateTable();
 
@@ -22,23 +20,34 @@ DataBase::DataBase() {
 }
 
 void DataBase::CreateTable(){
-    QSqlQuery query;
-    query.exec("create table if not exists settings "
-               "(id integer primary key, "
-               "page varchar(20));");
+    db.open();
+    QString cmd = "create table if not exists settings "
+                  "(id integer primary key, "
+                  "page varchar(20));";
+    QSqlQuery query(cmd, db);
+    query.exec();
+    db.close();
 }
 
 QString DataBase::GetSetting(){
-    QSqlQuery query;
-    query.exec("SELECT page FROM settings;");
+    db.open();
+
+    QString cmd = "SELECT page FROM settings;";
+
+    QSqlQuery query(cmd, db);
+    query.exec();
     query.next();
     QString txt = query.value(0).toString();
+    db.close();
     return txt;
 }
 
 void DataBase::SetSetting(QString value){
-    QSqlQuery query;
-    query.exec("UPDATE settings SET page='"+value+"' WHERE id=1;");
+    db.open();
+    QString cmd = "UPDATE settings SET page='"+value+"' WHERE id=1;";
+    QSqlQuery query(cmd, db);
+    query.exec();
+    db.close();
 }
 
 DataBase::~DataBase(){

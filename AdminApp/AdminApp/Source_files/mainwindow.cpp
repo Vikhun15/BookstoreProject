@@ -6,6 +6,7 @@
 #include "../Header_files/editwindow.h"
 #include "../Header_files/cashregisterwindow.h"
 #include "../database.h"
+#include "../Data/pgdatabase.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <fstream>
@@ -33,20 +34,27 @@ void MainWindow::Setup(){
 
     this->setStyleSheet("QPushButton#syncBtn {background-color:blue; color:white;}QPushButton#syncBtn:pressed {background-color:rgb(0,120,255);}QPushButton#syncBtn:hover:!pressed {background-color:darkblue;}");
 
-    window = new CashRegisterWindow(true,this);
+    pgdb = new PGDatabase();
+    db = new DataBase();
+    books = pgdb->GetBooks();
+
+    window = new CashRegisterWindow(true,db, pgdb, books,this);
     window->hide();
 
-    bool cRegister = (db.GetSetting() != "manage");
+    bool cRegister = (db->GetSetting() != "manage");
 
     if(cRegister){
-        window = new CashRegisterWindow(this);
+        window = new CashRegisterWindow(db, pgdb, books, this);
+        window->books = books;
         window->show();
         this->hide();
     }
     if(!loggedIn){
-        login = new Login(!loggedIn, this);
+        login = new Login(!loggedIn, pgdb->GetUsers(), this);
         login->setModal(true);
     }
+    //connect(window, SIGNAL(mode_clicked()), this, SLOT(refresh_table()));
+    //connect(ui->modeChangeBtn, SIGNAL(clicked()), window, SLOT(mode_click()));
 
     ui->removeBtn->setEnabled(false);
 
@@ -64,6 +72,8 @@ void MainWindow::Setup(){
     connect(ui->editBtn, SIGNAL(clicked()), this, SLOT(edit_click()));
     connect(ui->removeBtn, SIGNAL(clicked()), this, SLOT(remove_click()));
     connect(ui->stockBtn, SIGNAL(clicked()), this, SLOT(stock_click()));
+
+    connect(ui->refreshBtn, SIGNAL(clicked()), this, SLOT(refresh_table()));
 
     dir = QString::fromStdString("/home");
     connect(ui->exportBtn, SIGNAL(clicked()), this, SLOT(export_click()));
@@ -86,7 +96,8 @@ void MainWindow::Setup(){
     ui->dataTable->setRowCount(1);
 
 
-    books.append(new Book(1, "The Great Gatsby", "Fiction", 4.2, 22.50, true, 15));
+    books = pgdb->GetBooks();
+    //books.append(new Book(1, "The Great Gatsby", "Fiction", 4.2, 22.50, true, 15));
 
     ui->dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -98,7 +109,7 @@ void MainWindow::Setup(){
 
 
 
-
+    /*
     for(int i = 0; i < books.length(); i++){
         ui->dataTable->setItem(i, 0, new QTableWidgetItem(QString::number(books[i]->id)));
         ui->dataTable->setItem(i, 1, new QTableWidgetItem(books[i]->title));
@@ -116,8 +127,9 @@ void MainWindow::Setup(){
         ui->dataTable->setItem(i, 5, new QTableWidgetItem(stock));
         ui->dataTable->setItem(i, 6, new QTableWidgetItem(QString::number(books[i]->quantity)));
     }
-    SyncIds();
+*/
     SyncTable();
+    SyncIds();
     if(!loggedIn && !cRegister){
         login->open();
     }
@@ -156,7 +168,7 @@ void MainWindow::changeUsername(){
 }
 
 void MainWindow::logout_click(){
-    login = new Login(!loggedIn, this);
+    login = new Login(!loggedIn, pgdb->GetUsers(), this);
     login->setModal(true);
 
     connect(login, SIGNAL(passUsername()), this, SLOT(changeUsername()));
@@ -166,8 +178,9 @@ void MainWindow::logout_click(){
 
 void MainWindow::mode_click(){
     window->ChangeData(loggedIn, ui->username->text(), books);
-    db.SetSetting("register");
+    db->SetSetting("register");
     window->show();
+    window->refresh_table();
     this->hide();
 }
 
@@ -194,7 +207,17 @@ void MainWindow::add_to_table(){
 }
 
 void MainWindow::edit_click(){
-    EditWindow edit(books.at(selectedRowNum), ids, this);
+
+    Book* book;
+
+    for(int i = 0; i < books.length(); i++){
+        if(ui->dataTable->item(selectedRowNum, 0)->text().toInt() == books[i]->id){
+            book = books[i];
+            break;
+        }
+    }
+
+    EditWindow edit(book, ids, this);
     int result = edit.exec();
 
     if(result == 1){
@@ -294,7 +317,20 @@ void MainWindow::WriteCSV(std::string path){
 }
 
 void MainWindow::sync_click(){
-    //TODO
+    QMessageBox msg;
+    msg.setText("Are you sure you want to sync to the database?");
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::Yes);
+    int result = msg.exec();
+    if(result){
+        pgdb->FillBooks(books);
+    }
+}
+
+
+void MainWindow::refresh_table(){
+    books = pgdb->GetBooks();
+    SyncTable();
 }
 
 void MainWindow::searchChanged(){

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 
 AddWindow::AddWindow(QList<int> list,QWidget *parent)
@@ -228,6 +229,10 @@ void AddWindow::ReadCSV(QString path){
                 line.erase(0, pos + delimiter.length());
                 count--;
             }
+            if(titleTemp[0] == ','){
+                titleTemp.erase(0,1);
+            }
+
             lineSplit.append(titleTemp);
         }
 

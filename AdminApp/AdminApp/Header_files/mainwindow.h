@@ -6,6 +6,7 @@
 #include "addwindow.h"
 #include "cashregisterwindow.h"
 #include "../database.h"
+#include "../Data/pgdatabase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,7 +26,8 @@ public:
     AddWindow* addWindow;
     bool loggedIn;
     void ChangeData(bool loggedIn, QString username);
-    DataBase db;
+    DataBase *db;
+    PGDatabase *pgdb;
 
 private:
     Ui::MainWindow *ui;
@@ -38,6 +40,8 @@ private:
     void Setup();
     QString dir;
     int selectedRowNum;
+public slots:
+    void refresh_table();
 private slots:
     void changeUsername();
     void logout_click();

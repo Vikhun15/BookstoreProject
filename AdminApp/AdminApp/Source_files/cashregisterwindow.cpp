@@ -2,6 +2,7 @@
 #include "../UI_files/ui_cashregisterwindow.h"
 #include "../Header_files/mainwindow.h"
 #include <QTableWidget>
+#include <QMessageBox>
 
 CashRegisterWindow::CashRegisterWindow(bool loggedIn, QString username, QWidget *parent)
     : QMainWindow(parent)
@@ -10,14 +11,18 @@ CashRegisterWindow::CashRegisterWindow(bool loggedIn, QString username, QWidget 
     ui->setupUi(this);
     Setup();
     CashRegisterWindow::loggedIn = loggedIn;
+    CashRegisterWindow::books = books;
 
 }
-CashRegisterWindow::CashRegisterWindow(bool loggedIn, QWidget *parent)
+CashRegisterWindow::CashRegisterWindow(bool loggedIn, DataBase* db, PGDatabase* pgdb , QList<Book*> books,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CashRegisterWindow)
 {
     ui->setupUi(this);
     CashRegisterWindow::loggedIn = loggedIn;
+    CashRegisterWindow::db = db;
+    CashRegisterWindow::pgdb = pgdb;
+    CashRegisterWindow::books = books;
     Setup();
 
 }
@@ -33,21 +38,25 @@ CashRegisterWindow::CashRegisterWindow(bool loggedIn, QString username, QList<Bo
 
 }
 
-CashRegisterWindow::CashRegisterWindow(QWidget *parent)
+CashRegisterWindow::CashRegisterWindow(DataBase *db, PGDatabase *pgdb , QList<Book*> books ,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CashRegisterWindow)
 {
     ui->setupUi(this);
     loggedIn = false;
+    CashRegisterWindow::db = db;
+    CashRegisterWindow::pgdb = pgdb;
+    CashRegisterWindow::books = books;
     Setup();
 
 }
 
 void CashRegisterWindow::Setup(){
     this->setStyleSheet("QPushButton#syncBtn {background-color:blue; color:white;}QPushButton#syncBtn:pressed {background-color:rgb(0,120,255);}QPushButton#syncBtn:hover:!pressed {background-color:darkblue;}");
+    login = new Login(false, pgdb->GetUsers(), this);
 
     if(!loggedIn){
-        login = new Login(!loggedIn, this);
+        login = new Login(!loggedIn, pgdb->GetUsers(), this);
         login->setModal(true);
     }
 
@@ -55,6 +64,8 @@ void CashRegisterWindow::Setup(){
 
     connect(ui->logoutBtn, SIGNAL(clicked()), this, SLOT(logout_click()));
     connect(ui->modeChangeBtn, SIGNAL(clicked()), this, SLOT(mode_click()));
+
+    connect(ui->refreshBtn, SIGNAL(clicked()), this, SLOT(refresh_table()));
 
     connect(ui->syncBtn, SIGNAL(clicked()), this, SLOT(sync_click()));
     connect(ui->dataTable, SIGNAL(itemSelectionChanged()), this, SLOT(selectedChanged()));
@@ -77,14 +88,14 @@ void CashRegisterWindow::Setup(){
                                                            << tr("Price")
                                                            << tr("In Stock")
                                                            << tr("Quantity"));
-    ui->dataTable->setRowCount(1);
     ui->itemsList->setColumnCount(3);
     ui->itemsList->setHorizontalHeaderLabels(QStringList() << tr("Title")
                                                            << tr("Price")
                                                            << tr("Quantity"));
 
 
-    books.append(new Book(1, "The Great Gatsby", "Fiction", 4.2, 22.50, true, 15));
+    //books.append(new Book(1, "The Great Gatsby", "Fiction", 4.2, 22.50, true, 15));
+    //ui->dataTable->setRowCount(1);
 
     ui->dataTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->dataTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -128,7 +139,7 @@ void CashRegisterWindow::changeUsername(){
 
 
 void CashRegisterWindow::logout_click(){
-    login = new Login(!loggedIn, this);
+    login = new Login(!loggedIn, pgdb->GetUsers(), this);
     login->setModal(true);
 
     connect(login, SIGNAL(passUsername()), this, SLOT(changeUsername()));
@@ -139,7 +150,8 @@ void CashRegisterWindow::logout_click(){
 void CashRegisterWindow::mode_click(){
     ((MainWindow*)parent())->ChangeData(loggedIn, ui->username->text());
     ((MainWindow*)parent())->show();
-    ((MainWindow*)parent())->db.SetSetting("manage");
+    ((MainWindow*)parent())->refresh_table();
+    db->SetSetting("manage");
     this->hide();
 }
 
@@ -216,11 +228,19 @@ void CashRegisterWindow::add_click(){
     if(ui->dataTable->selectionModel()->hasSelection()){
         int num = ui->dataTable->item(selectedRowNum, 6)->text().toInt();
         QString title = ui->dataTable->item(selectedRowNum, 1)->text();
+        int index = 0;
+        for(int i = 0; i < books.length(); i++){
+            if(books[i]->title == title){
+                index = i;
+                break;
+            }
+        }
         if(num != 0){
             if(num - 1 == 0){
                 ui->dataTable->item(selectedRowNum, 5)->setText("No");
             }
             ui->dataTable->item(selectedRowNum, 6)->setText(QString::number(num-1));
+            books[index]->quantity--;
             bool found = false;
             for(int i = 0; i < ui->itemsList->rowCount(); i++){
                 if(ui->itemsList->item(i, 0)->text() == title){
@@ -240,6 +260,13 @@ void CashRegisterWindow::add_click(){
         int row = 0;
         int num = 0;
         QString title = ui->itemsList->item(selectedListNum, 0)->text();
+        int index = 0;
+        for(int i = 0; i < books.length(); i++){
+            if(books[i]->title == title){
+                index = i;
+                break;
+            }
+        }
         for(int i = 0; i < ui->dataTable->rowCount(); i++){
             if(ui->dataTable->item(i, 1)->text() == title){
                 num = ui->dataTable->item(i, 6)->text().toInt();
@@ -252,6 +279,7 @@ void CashRegisterWindow::add_click(){
                 ui->dataTable->item(row, 5)->setText("No");
             }
             ui->dataTable->item(row, 6)->setText(QString::number(num-1));
+            books[index]->quantity--;
             bool found = false;
             for(int i = 0; i < ui->itemsList->rowCount(); i++){
                 if(ui->itemsList->item(i, 0)->text() == title){
@@ -275,6 +303,13 @@ void CashRegisterWindow::remove_click(){
     if(ui->itemsList->selectionModel()->hasSelection()){
         int num = ui->itemsList->item(selectedListNum, 2)->text().toInt();
         QString title = ui->itemsList->item(selectedListNum, 0)->text();
+        int index = 0;
+        for(int i = 0; i < books.length(); i++){
+            if(books[i]->title == title){
+                index = i;
+                break;
+            }
+        }
         if(num - 1 == 0){
             ui->itemsList->removeRow(selectedListNum);
         }
@@ -287,6 +322,7 @@ void CashRegisterWindow::remove_click(){
                     ui->dataTable->item(i, 5)->setText("Yes");
                 }
                 ui->dataTable->item(i, 6)->setText(QString::number(ui->dataTable->item(i, 6)->text().toInt()+1));
+                books[index]->quantity--;
             }
         }
     }
@@ -295,6 +331,13 @@ void CashRegisterWindow::remove_click(){
             QString title = ui->dataTable->item(selectedRowNum, 1)->text();
             int row = 0;
             int num = 0;
+            int index = 0;
+            for(int i = 0; i < books.length(); i++){
+                if(books[i]->title == title){
+                    index = i;
+                    break;
+                }
+            }
             for(int i = 0;i < ui->itemsList->rowCount(); i++){
                 if(ui->itemsList->item(i,0)->text() == title){
                     num = ui->itemsList->item(i, 2)->text().toInt();
@@ -314,6 +357,7 @@ void CashRegisterWindow::remove_click(){
                         ui->dataTable->item(i, 5)->setText("Yes");
                     }
                     ui->dataTable->item(i, 6)->setText(QString::number(ui->dataTable->item(i, 6)->text().toInt()+1));
+                    books[index]->quantity++;
                 }
             }
         }
@@ -331,7 +375,18 @@ void CashRegisterWindow::table_click(){
 }
 
 void CashRegisterWindow::sync_click(){
-    //TODO
+    QMessageBox msg;
+    msg.setText("Are you sure you want to finalize the transaction?");
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::Yes);
+    int result = msg.exec();
+    if(result){
+        pgdb->FillBooks(books);
+        ui->itemsList->setRowCount(0);
+        selectedListNum = 0;
+        ui->priceTxt->setText("0$");
+        ui->totalTxt->setText("0$");
+    }
 }
 
 void CashRegisterWindow::searchChanged(){
@@ -350,6 +405,11 @@ void CashRegisterWindow::searchChanged(){
             ui->dataTable->showRow(i);
         }
     }
+}
+
+void CashRegisterWindow::refresh_table(){
+    books = pgdb->GetBooks();
+    SyncTable();
 }
 
 void CashRegisterWindow::closeEvent(QCloseEvent *event){
