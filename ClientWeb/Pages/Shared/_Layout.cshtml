@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ClientWeb.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="/images/books.png">
+</head>
+<body>
+    <nav class="row">
+        <button id="homeBtn" onclick="location.href='/Index'" class="col button">Home</button>
+        <button id="blogBtn" onclick="location.href='/Blog'" class="col button">Blog</button>
+        <button id="shopBtn" onclick="location.href='/Webshop'" class="col button">Webshop</button>
+        <button id="aboutBtn" onclick="location.href='/About'" class="col button">About us</button>
+    </nav>
+    <div id="themeSwitch">
+    <img id="themeImg" class="day" src="~/images/icons/sun.png"/>
+
+    </div>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <script asp-append-version="true" src="~/js/site.js"></script>
+    </footer>
+</body>
+</html>

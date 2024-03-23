@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "FkprjbifhIkJssQ3NpdYgudSSCpRi7kghpQFE6Yi/YzE+cl5JzEXNSXE4BoXYkVh9L316SlCD5PSy8EsMI08xQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\ClientWeb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\okvik\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\okvik\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\okvik\\.nuget\\packages\\npgsql\\8.0.2\\npgsql.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

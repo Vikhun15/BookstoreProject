@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-07fe12f044b698f9f457.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "AdminApp",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "AdminApp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdminApp-RelWithDebInfo-adfe4e931a40ac37b15b.json",
+					"name" : "AdminApp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "AdminApp_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdminApp_autogen-RelWithDebInfo-b5cb0dd6e4c30de9f54d.json",
+					"name" : "AdminApp_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "AdminApp_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdminApp_autogen_timestamp_deps-RelWithDebInfo-df95f789c7cfc7e81d03.json",
+					"name" : "AdminApp_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile",
+		"source" : "C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/AdminApp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

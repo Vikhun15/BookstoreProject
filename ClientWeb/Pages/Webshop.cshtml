@@ -1,0 +1,91 @@
+﻿@page "/Webshop"
+@model ClientWeb.Pages.WebshopModel
+@using ClientWeb.Models
+@{
+    ViewData["Title"] = "Bookstore - Webshop";
+    WebshopModel mod = new WebshopModel();
+    List<Book> books = mod.books;
+}
+
+@functions{
+    void RenderTable(List<Book> books){
+        foreach(Book book in books)
+        {
+            <tr>
+                <td>@book.title</td>
+                <td>@book.category</td>
+                <td>
+                    @{
+                        int count = 0;
+                    }
+                    @for(int i = 0; i < Math.Round(book.rating); i++)
+                    {
+                        count++;
+                        <img class="webshop-star" src="/images/icons/filled_star.png"/>
+                    }
+                    @if(count < 5)
+                    {
+                        while(count < 5)
+                        {
+                            <img class="webshop-star" src="/images/icons/unfilled_star.png"/>
+                            count++;
+                        }
+                    }
+                </td>
+                <td>@book.price$</td>
+            </tr>
+        }
+    }
+}
+
+<div id="webshop">
+    <div id="settings">
+        <div id="price-range">
+            Price range: <input id="price-input" type="number" step="1" name="price" min="@books.Min(x => x.price).ToString().Replace(',', '.')" max="@books.Max(x => x.price).ToString().Replace(',', '.')"value="@books.Max(x=>x.price).ToString().Replace(',', '.')" />$
+        </div>
+        <div id="price-slider">
+            <input type="range" step="0.01" min="@books.Min(x => x.price).ToString().Replace(',', '.')" max="@books.Max(x => x.price).ToString().Replace(',', '.')" value="@books.Max(x => x.price).ToString().Replace(',', '.')" class="slider" id="price-slider-input">
+        </div>
+        <div id="checkboxes">
+            <input type="checkbox" id="in-stock" value="In stock" />
+            <label for="in-stock">In stock</label><br>
+            <input type="checkbox" id="in-storage" value="In storage" />
+            <label for="in-storage">In storage</label><br>
+        </div>
+        <p>Categories</p>
+        <div id="categories">
+        @{
+            int count = 1;
+        }
+        @foreach(string category in books.Select(x => x.category).Distinct().Order())
+            {
+            <input type="checkbox" checked="true" id="@category@count" value="@category @count" />
+            <label for="@category@count">@category</label><br>
+            }
+        </div>
+    </div>
+    <div id="webshop-table-container-top" class="webshop-table-container">
+    <table class="webshop-table">
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Rating</th>
+            <th>Price</th>
+        </tr>
+    </table>
+    </div>
+    <div class="webshop-table-container">
+    <table class="webshop-table">
+        @{
+            RenderTable(books);
+        }
+    </table>
+    </div>
+    <div id="cart">
+        <img id="cartImg" src="~/images/icons/cart.png" />
+    </div>
+    <div id="buy">
+        Buy
+    </div>
+</div>
+<script src="~/js/webshop_scripts.js"></script>

@@ -1,0 +1,8 @@
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/AdminApp.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/edit_cache.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/rebuild_cache.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/list_install_components.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/install.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/install/local.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/AdminApp_autogen_timestamp_deps.dir
+C:/Users/okvik/Documents/Prog_Projects/BookstoreProject/AdminApp/build-AdminApp-Desktop_Qt_6_6_2_MSVC2019_64bit-Profile/CMakeFiles/AdminApp_autogen.dir

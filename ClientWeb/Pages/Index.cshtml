@@ -1,0 +1,90 @@
+﻿@page "/Index"
+@model IndexModel
+@{
+    ViewData["Title"] = "Bookstore";
+}
+
+<h1>Welcome to our Bookstore!</h1>
+<div>
+    <h3>Featured books</h3>
+    <div id="featuredBooks" class="row">
+        <div class="col-4 bookCard-parent">
+            <div class="bookCard">
+                <p class="bookCard-title">1984</p>
+                <p class="bookCard-categor">Fiction</p>
+                <div class="stars">
+                    <img src="images/icons/filled_star.png"/>
+                    <img src="images/icons/filled_star.png"/>
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                </div>
+            </div>
+        </div>
+        <div class="col-4 bookCard-parent">
+            <div class="bookCard">
+                <p class="bookCard-title">The great Gatsby</p>
+                <p class="bookCard-categor">Fiction</p>
+                <div class="stars">
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/unfilled_star.png" />
+                </div>
+            </div>
+        </div>
+        <div class="col-4 bookCard-parent">
+            <div class="bookCard">
+                <p class="bookCard-title">The great Gatsby</p>
+                <p class="bookCard-categor">Fiction</p>
+                <div class="stars">
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/unfilled_star.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <h3>Reviews from our customers</h3>
+    <div id="reviews" class="row">
+         <div class="col-6 review">
+             <div class="review-header row">
+                 <span class="col-6 review-title">
+                     User 1
+                 </span>
+                <span class="col-6 stars review-stars">
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/unfilled_star.png" />
+                 </spa>
+             </div>
+             <p class="review-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc imperdiet luctus suscipit.
+             </p>
+        </div>
+        <div class="col-6 review">
+            <div class="review-header row">
+                <span class="col-6 review-title">
+                    User 2
+                </span>
+                <span class="col-6 stars review-stars">
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/filled_star.png" />
+                    <img src="images/icons/unfilled_star.png" />
+                    </spa>
+            </div>
+            <p class="review-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc imperdiet luctus suscipit.
+            </p>
+        </div>
+    </div>
+</div>

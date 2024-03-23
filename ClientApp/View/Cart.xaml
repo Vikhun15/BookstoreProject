@@ -1,0 +1,36 @@
+﻿<Window x:Class="ClientApp.View.Cart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientApp.View"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Title="Cart" Height="300" Width="400" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="clearBtn" Content="Clear cart" Width="80" Height="24" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        <DataGrid x:Name="booksGrid" ItemsSource="{Binding Path=books}"  AutoGenerateColumns="False" Grid.Row="1" Margin="30, 10" CanUserResizeRows="False" BorderBrush="White" GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=title}" Width="3*" />
+                <DataGridTemplateColumn Header="Quantity" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Path=quantity}" Width="40"/>
+                                <Button Background="Red" Foreground="White" Width="20" Click="Remove_Click">-</Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Path=price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="totalTxt" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,0,0" Content="Total: 22.50$"/>
+        <Button x:Name="finalBtn" Grid.Row="2" Content="Finalize" Width="80" Height="22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5"/>
+    </Grid>
+</Window>
