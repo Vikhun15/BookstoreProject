@@ -169,7 +169,7 @@ h3{
     }
     #webshop-table-container-top .webshop-table tr:hover {
         background-color: transparent;
-        color: black;
+        color: white;
     }
 
 .webshop-table-container {
@@ -179,8 +179,19 @@ h3{
     max-width: 80%;
 }
 
+.selected {
+    background-color: purple;
+    color: white;
+}
+
+.selected:hover {
+    background-color: lightgray;
+    color: black;
+}
+
 .webshop-table{
-    background-color: white;
+    background-color: saddlebrown;
+    color:white;
     border-spacing: 30px;
 }
 
@@ -210,6 +221,54 @@ h3{
 .webshop-star {
     aspect-ratio: 1/1;
     width: 20px;
+}
+.cart-table {
+    background-color: saddlebrown;
+    color: white;
+    border-spacing: 10px;
+}
+#cart-table-container-top.cart-table-container {
+    overflow-y: hidden;
+    padding-right: 17px;
+}
+.cart-table-container {
+    max-height: 100px;
+    font-size: 14px;
+    overflow-y: scroll;
+    margin: auto;
+    max-width: 70%;
+}
+
+
+    .cart-table tr {
+        border: lightgray solid 1px;
+    }
+
+    .cart-table td, .cart-table th {
+        padding: 10px 10px;
+    }
+
+        .cart-table td:first-child, .cart-table th:first-child {
+            width: 200px;
+            word-wrap: anywhere;
+        }
+        .cart-table td:nth-child(3), .cart-table th:nth-child(3) {
+            width: 90px;
+        }
+
+    .cart-table th {
+        text-align: center;
+    }
+.remove-btn{
+    width:90px;
+    text-align:center;
+    color: red;
+    font-size: 22px;
+    border: red 1px solid;
+}
+.remove-btn:hover {
+    color: white;
+    background-color: red;
 }
 
 #settings{

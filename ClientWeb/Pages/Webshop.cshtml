@@ -11,33 +11,35 @@
     void RenderTable(List<Book> books){
         foreach(Book book in books)
         {
-            <tr>
-                <td>@book.title</td>
-                <td>@book.category</td>
-                <td>
-                    @{
-                        int count = 0;
-                    }
-                    @for(int i = 0; i < Math.Round(book.rating); i++)
-                    {
-                        count++;
-                        <img class="webshop-star" src="/images/icons/filled_star.png"/>
-                    }
-                    @if(count < 5)
-                    {
-                        while(count < 5)
-                        {
-                            <img class="webshop-star" src="/images/icons/unfilled_star.png"/>
-                            count++;
-                        }
-                    }
-                </td>
-                <td>@book.price$</td>
-            </tr>
+            if (book.quantity > 0)
+            {
+                <script type="text/javascript">data.push(new Book(@book.id, '@book.title', '@book.category', @book.rating.ToString().Replace(',', '.'), @book.price.ToString().Replace(',', '.'), @book.inStock.ToString().ToLower(), @book.quantity))</script>
+            }
         }
     }
 }
 
+
+<script type="text/javascript">
+    class Book {
+        constructor(id, title, category, rating, price, inStock, quantity) {
+            this.id = id;
+            this.title = title;
+            this.category = category;
+            this.rating = rating;
+            this.price = price;
+            this.inStock = inStock;
+            this.quantity = quantity;
+        }
+    }
+
+    var data = [];
+    var selected = [];
+    var cart = [];
+</script>
+
+<script type="text/javascript" src="~/js/webshop_scripts.js">
+</script>
 <div id="webshop">
     <div id="settings">
         <div id="price-range">
@@ -49,8 +51,6 @@
         <div id="checkboxes">
             <input type="checkbox" id="in-stock" value="In stock" />
             <label for="in-stock">In stock</label><br>
-            <input type="checkbox" id="in-storage" value="In storage" />
-            <label for="in-storage">In storage</label><br>
         </div>
         <p>Categories</p>
         <div id="categories">
@@ -59,7 +59,7 @@
         }
         @foreach(string category in books.Select(x => x.category).Distinct().Order())
             {
-            <input type="checkbox" checked="true" id="@category@count" value="@category @count" />
+            <input class="category-checkboxes" type="checkbox" checked="true" id="@category@count" value="@category" />
             <label for="@category@count">@category</label><br>
             }
         </div>
@@ -75,7 +75,7 @@
     </table>
     </div>
     <div class="webshop-table-container">
-    <table class="webshop-table">
+    <table id="webshop-table" class="webshop-table">
         @{
             RenderTable(books);
         }
@@ -87,5 +87,112 @@
     <div id="buy">
         Buy
     </div>
+    <div id="cart-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-contents">
+                        <div id="cart-table-container-top" class="cart-table-container">
+                            <table class="cart-table">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="cart-table-container">
+                            <table id="cart-table" class="cart-table">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Finalize</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<script src="~/js/webshop_scripts.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("price-input").addEventListener("change", function () {
+        document.getElementById("price-slider-input").value = document.getElementById("price-input").value;
+    })
+
+    document.getElementById("price-slider-input").addEventListener("change", function () {
+        document.getElementById("price-input").value = document.getElementById("price-slider-input").value;
+    })
+
+    document.getElementById("price-slider-input").addEventListener("change", function () {
+        ReloadTable(data)
+    });
+    document.getElementById("price-input").addEventListener("change", function () {
+        ReloadTable(data)
+    });
+    document.getElementById("in-stock").addEventListener("change", function () {
+        ReloadTable(data)
+    });
+
+    for (var item of document.getElementsByClassName("category-checkboxes")) {
+        item.addEventListener("change", function () {
+            ReloadTable(data)
+        });
+    }
+
+    document.getElementById("buy").addEventListener("click", function () {
+        for (var item of data) {
+            if (selected.includes(item.id)) {
+                cart.push(item)
+            }
+        }
+        selected = []
+        selects = document.getElementsByClassName("selected");
+        while (selects.length > 0) {
+            selects[0].classList.remove('selected');
+        }
+    })
+
+    document.getElementById("cart").addEventListener("click", function () {
+        document.getElementById("cart-table").innerHTML = "";
+        for (var item of cart) {
+            var id = "id-" + item.id;
+            var elem = document.createElement("tr")
+            elem.id = id;
+            var title = document.createElement("td")
+            title.innerText = item.title;
+            elem.appendChild(title)
+            var price = document.createElement("td")
+            price.innerText = item.price + "$"
+            elem.appendChild(price)
+            var button = document.createElement("td")
+            button.innerText = "-";
+            button.classList.add("remove-btn")
+            button.addEventListener("click", function () {
+                for (var i in cart) {
+                    if (cart[i].id == this.parentNode.id.split("-")[1]) {
+                        cart.splice(i, 1)
+                        break;
+                    }
+                }
+                var row = this.parentNode;
+                row.parentNode.removeChild(row);
+            })
+            elem.appendChild(button);
+            document.getElementById("cart-table").appendChild(elem)
+        }
+        $("#cart-modal").modal();
+    });
+
+    ReloadTable(data);
+
+</script>
+

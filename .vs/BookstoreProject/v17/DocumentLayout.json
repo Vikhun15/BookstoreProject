@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\webshop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\pages\\webshop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -15,12 +15,12 @@
       "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\wwwroot\\js\\webshop_scripts.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\webshop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\pages\\webshop.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\webshop.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\pages\\webshop.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -31,16 +31,8 @@
       "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\models\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\models\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,21 +42,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Index.cshtml",
-              "RelativeDocumentMoniker": "ClientWeb\\Pages\\Index.cshtml",
-              "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Index.cshtml",
-              "RelativeToolTip": "ClientWeb\\Pages\\Index.cshtml",
-              "ViewState": "AQIAAFUAAAAAAAAAAAAAAFcAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-21T21:26:38.365Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -73,9 +52,10 @@
               "RelativeDocumentMoniker": "ClientWeb\\wwwroot\\js\\webshop_scripts.js",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\js\\webshop_scripts.js",
               "RelativeToolTip": "ClientWeb\\wwwroot\\js\\webshop_scripts.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAABYAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAAAwwCUAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-03-21T13:22:21.302Z"
+              "WhenOpened": "2024-03-21T13:22:21.302Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -85,49 +65,40 @@
               "RelativeDocumentMoniker": "ClientWeb\\wwwroot\\js\\site.js",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\js\\site.js",
               "RelativeToolTip": "ClientWeb\\wwwroot\\js\\site.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-03-20T09:04:50.199Z"
+              "WhenOpened": "2024-03-20T09:04:50.199Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Webshop.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Webshop.cshtml.cs",
-              "RelativeDocumentMoniker": "ClientWeb\\Pages\\Webshop.cshtml.cs",
-              "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Webshop.cshtml.cs",
-              "RelativeToolTip": "ClientWeb\\Pages\\Webshop.cshtml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-21T12:04:41.827Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Webshop.cshtml",
               "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Webshop.cshtml",
               "RelativeDocumentMoniker": "ClientWeb\\Pages\\Webshop.cshtml",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Webshop.cshtml",
               "RelativeToolTip": "ClientWeb\\Pages\\Webshop.cshtml",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAAFoAAAAdAAAA",
+              "ViewState": "AQIAAFYAAAAAAAAAAAAAAFwAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-21T11:24:03.478Z"
+              "WhenOpened": "2024-03-21T11:24:03.478Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "Book.cs",
               "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Models\\Book.cs",
               "RelativeDocumentMoniker": "ClientWeb\\Models\\Book.cs",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Models\\Book.cs",
               "RelativeToolTip": "ClientWeb\\Models\\Book.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAAAAIAAAAaAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAIAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T16:28:02.22Z"
+              "WhenOpened": "2024-03-19T16:28:02.22Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "Database.cs",
               "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Models\\Database.cs",
               "RelativeDocumentMoniker": "ClientWeb\\Models\\Database.cs",
@@ -139,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ClientWeb\\Controllers\\HomeController.cs",
@@ -147,7 +118,8 @@
               "RelativeToolTip": "ClientWeb\\Controllers\\HomeController.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAowBYAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T15:48:10.714Z"
+              "WhenOpened": "2024-03-19T15:48:10.714Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -157,9 +129,10 @@
               "RelativeDocumentMoniker": "ClientWeb\\Pages\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "ClientWeb\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAABUAAAAKAAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAAAYAAADWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-19T09:14:13.422Z"
+              "WhenOpened": "2024-03-19T09:14:13.422Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -169,7 +142,7 @@
               "RelativeDocumentMoniker": "ClientWeb\\wwwroot\\css\\site.css",
               "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\css\\site.css",
               "RelativeToolTip": "ClientWeb\\wwwroot\\css\\site.css",
-              "ViewState": "AQIAAJ0AAAAAAAAAAAAqwKMAAAAAAAAA",
+              "ViewState": "AQIAANkAAAAAAAAAAAAAAO4AAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2024-03-19T10:27:28.775Z",
               "EditorCaption": ""
