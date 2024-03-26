@@ -32,5 +32,28 @@ namespace ClientWeb.Models
             connection.Close();
             return books;
         }
+
+        public void TakeBook(int id)
+        {
+            int quantity = 0;
+            connection.Open();
+
+            string txt = $"SELECT id, title, category, rating, price, stock, quantity FROM books WHERE id = {id};";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(txt, connection);
+
+            var reader = cmd.ExecuteReader();
+
+            reader.Read();
+            quantity = reader.GetInt32(6);
+
+            reader.Close();
+
+            txt = $"UPDATE books SET quantity = {quantity - 1} WHERE id = {id}";
+            cmd.CommandText = txt;
+            cmd.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }

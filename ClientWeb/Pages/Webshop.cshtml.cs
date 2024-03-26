@@ -16,5 +16,10 @@ namespace ClientWeb.Pages
             db = new Database();
             books = db.GetBooks();
         }
+
+        public void ReloadBooks()
+        {
+            books = db.GetBooks();
+        }
     }
 }

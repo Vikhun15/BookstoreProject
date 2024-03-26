@@ -1,4 +1,7 @@
 ﻿
+
+
+
 function CheckData() {
     var priceMax = document.getElementById("price-slider-input").value;
     var inStock = document.getElementById("in-stock").checked

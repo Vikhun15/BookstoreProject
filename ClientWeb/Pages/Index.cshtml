@@ -1,52 +1,54 @@
 ﻿@page "/Index"
 @model IndexModel
+@using ClientWeb.Models
 @{
     ViewData["Title"] = "Bookstore";
+    WebshopModel mod = new WebshopModel();
+    List<Book> books = mod.books;
+    List<Book> rndBooks = SpinRandom(books);
+}
+
+@functions {
+    List<Book> SpinRandom(List<Book> books)
+    {
+        List<Book> rndBooks = new List<Book>();
+        Random rnd = new Random();
+        while(rndBooks.Count < 3)
+        {
+            int index = rnd.Next(0, books.Count - 1);
+            if (!rndBooks.Contains(books[index]) && books[index].rating >= 4)
+            {
+                rndBooks.Add(books[index]);
+            }
+        }
+        return rndBooks;
+    }
 }
 
 <h1>Welcome to our Bookstore!</h1>
 <div>
     <h3>Featured books</h3>
     <div id="featuredBooks" class="row">
-        <div class="col-4 bookCard-parent">
-            <div class="bookCard">
-                <p class="bookCard-title">1984</p>
-                <p class="bookCard-categor">Fiction</p>
-                <div class="stars">
-                    <img src="images/icons/filled_star.png"/>
-                    <img src="images/icons/filled_star.png"/>
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
+
+        @foreach(Book book in rndBooks)
+        {
+            <div class="col-4 bookCard-parent">
+                <div class="bookCard">
+                    <p class="bookCard-title">@book.title</p>
+                    <p class="bookCard-category">@book.category</p>
+                    <div class="stars">
+                        @for(int i = 0; i < Math.Round(book.rating); i++)
+                        {
+                            <img src="images/icons/filled_star.png" />
+                        }
+                        @for (int i = 0; i < 5.0-Math.Round(book.rating); i++)
+                        {
+                            <img src="images/icons/unfilled_star.png" />
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4 bookCard-parent">
-            <div class="bookCard">
-                <p class="bookCard-title">The great Gatsby</p>
-                <p class="bookCard-categor">Fiction</p>
-                <div class="stars">
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/unfilled_star.png" />
-                </div>
-            </div>
-        </div>
-        <div class="col-4 bookCard-parent">
-            <div class="bookCard">
-                <p class="bookCard-title">The great Gatsby</p>
-                <p class="bookCard-categor">Fiction</p>
-                <div class="stars">
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/filled_star.png" />
-                    <img src="images/icons/unfilled_star.png" />
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 <div>

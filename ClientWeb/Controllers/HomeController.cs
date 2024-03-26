@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ClientWeb.Models;
 
 namespace ClientWeb.Controllers
 {
@@ -23,6 +24,14 @@ namespace ClientWeb.Controllers
         public IActionResult About()
         {
             return LocalRedirect("/About");
+        }
+
+        [Route("/BuyBook")]
+        public IActionResult BuyBook(int id)
+        {
+            Database db = new Database();
+            db.TakeBook(id);
+            return LocalRedirect("/Webshop");
         }
     }
 }

@@ -53,12 +53,32 @@
       "PackagePath": "staticwebassets\\images\\icons\\unfilled_star.png"
     },
     {
+      "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\images\\layout\\background.jpg",
+      "PackagePath": "staticwebassets\\images\\layout\\background.jpg"
+    },
+    {
+      "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\images\\layout\\books.avif",
+      "PackagePath": "staticwebassets\\images\\layout\\books.avif"
+    },
+    {
+      "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\images\\layout\\books.jpg",
+      "PackagePath": "staticwebassets\\images\\layout\\books.jpg"
+    },
+    {
+      "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\images\\layout\\rptgtpxd-1396254731.jpg",
+      "PackagePath": "staticwebassets\\images\\layout\\rptgtpxd-1396254731.jpg"
+    },
+    {
       "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\images\\placeholder.png",
       "PackagePath": "staticwebassets\\images\\placeholder.png"
     },
     {
       "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\js\\webshop_post.js",
+      "PackagePath": "staticwebassets\\js\\webshop_post.js"
     },
     {
       "Id": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\wwwroot\\js\\webshop_scripts.js",
