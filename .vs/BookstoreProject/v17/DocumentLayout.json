@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EFD23394-21DF-483A-BB1E-FCA369C852D6}|ClientApp\\ClientApp.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientapp\\data\\localdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFD23394-21DF-483A-BB1E-FCA369C852D6}|ClientApp\\ClientApp.csproj|solutionrelative:clientapp\\data\\localdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EFD23394-21DF-483A-BB1E-FCA369C852D6}|ClientApp\\ClientApp.csproj|C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\clientapp\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFD23394-21DF-483A-BB1E-FCA369C852D6}|ClientApp\\ClientApp.csproj|solutionrelative:clientapp\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|c:\\users\\okvik\\documents\\prog_projects\\bookstoreproject\\clientweb\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3AB761E1-5BC5-43A9-AB52-E7B432047741}|ClientWeb\\ClientWeb.csproj|solutionrelative:clientweb\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LocalDatabase.cs",
-              "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientApp\\Data\\LocalDatabase.cs",
-              "RelativeDocumentMoniker": "ClientApp\\Data\\LocalDatabase.cs",
-              "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientApp\\Data\\LocalDatabase.cs",
-              "RelativeToolTip": "ClientApp\\Data\\LocalDatabase.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T08:56:22.956Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Database.cs",
-              "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientApp\\Data\\Database.cs",
-              "RelativeDocumentMoniker": "ClientApp\\Data\\Database.cs",
-              "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientApp\\Data\\Database.cs",
-              "RelativeToolTip": "ClientApp\\Data\\Database.cs",
-              "ViewState": "AQIAAHkAAAAAAAAAAAAAABgAAACCAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T08:56:09.619Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "ClientWeb\\Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\okvik\\Documents\\Prog_Projects\\BookstoreProject\\ClientWeb\\Pages\\Index.cshtml",
+              "RelativeToolTip": "ClientWeb\\Pages\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-26T09:08:37.53Z",
               "EditorCaption": ""
             }
           ]
