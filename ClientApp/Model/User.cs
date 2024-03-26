@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Npgsql;
+﻿using Npgsql;
 
 namespace ClientApp.Model
 {
@@ -32,7 +27,7 @@ namespace ClientApp.Model
 
         public bool CheckUser(string username, string password)
         {
-            return ((this.username == username || this.email == username )&& this.password == password);
+            return (this.username == username || email == username) && this.password == password;
         }
 
         public bool CheckUsername(string username)

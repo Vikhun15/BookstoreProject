@@ -4,8 +4,8 @@ namespace ClientWeb.Models
 {
     public class Database
     {
-        private string connectionString;
-        private NpgsqlConnection connection;
+        private readonly string connectionString;
+        private readonly NpgsqlConnection connection;
 
         public Database()
         {
@@ -16,13 +16,13 @@ namespace ClientWeb.Models
         public List<Book> GetBooks()
         {
             connection.Open();
-            List<Book> books = new List<Book>();
+            List<Book> books = [];
 
             string txt = "SELECT id, title, category, rating, price, stock, quantity FROM books;";
 
-            NpgsqlCommand cmd = new NpgsqlCommand(txt, connection);
+            NpgsqlCommand cmd = new(txt, connection);
 
-            var reader = cmd.ExecuteReader();
+            NpgsqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
@@ -35,23 +35,22 @@ namespace ClientWeb.Models
 
         public void TakeBook(int id)
         {
-            int quantity = 0;
             connection.Open();
 
             string txt = $"SELECT id, title, category, rating, price, stock, quantity FROM books WHERE id = {id};";
 
-            NpgsqlCommand cmd = new NpgsqlCommand(txt, connection);
+            NpgsqlCommand cmd = new(txt, connection);
 
-            var reader = cmd.ExecuteReader();
+            NpgsqlDataReader reader = cmd.ExecuteReader();
 
-            reader.Read();
-            quantity = reader.GetInt32(6);
+            _ = reader.Read();
+            int quantity = reader.GetInt32(6);
 
             reader.Close();
 
             txt = $"UPDATE books SET quantity = {quantity - 1} WHERE id = {id}";
             cmd.CommandText = txt;
-            cmd.ExecuteNonQuery();
+            _ = cmd.ExecuteNonQuery();
 
             connection.Close();
         }

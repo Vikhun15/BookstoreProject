@@ -13,7 +13,7 @@
     {
         List<Book> rndBooks = new List<Book>();
         Random rnd = new Random();
-        while(rndBooks.Count < 3)
+        while (rndBooks.Count < 3)
         {
             int index = rnd.Next(0, books.Count - 1);
             if (!rndBooks.Contains(books[index]) && books[index].rating >= 4)
@@ -30,18 +30,18 @@
     <h3>Featured books</h3>
     <div id="featuredBooks" class="row">
 
-        @foreach(Book book in rndBooks)
+        @foreach (Book book in rndBooks)
         {
             <div class="col-4 bookCard-parent">
                 <div class="bookCard">
                     <p class="bookCard-title">@book.title</p>
                     <p class="bookCard-category">@book.category</p>
                     <div class="stars">
-                        @for(int i = 0; i < Math.Round(book.rating); i++)
+                        @for (int i = 0; i < Math.Round(book.rating); i++)
                         {
                             <img src="images/icons/filled_star.png" />
                         }
-                        @for (int i = 0; i < 5.0-Math.Round(book.rating); i++)
+                        @for (int i = 0; i < 5.0 - Math.Round(book.rating); i++)
                         {
                             <img src="images/icons/unfilled_star.png" />
                         }
@@ -54,22 +54,24 @@
 <div>
     <h3>Reviews from our customers</h3>
     <div id="reviews" class="row">
-         <div class="col-6 review">
-             <div class="review-header row">
-                 <span class="col-6 review-title">
-                     User 1
-                 </span>
+        <div class="col-6 review">
+            <div class="review-header row">
+                <span class="col-6 review-title">
+                    User 1
+                </span>
                 <span class="col-6 stars review-stars">
                     <img src="images/icons/filled_star.png" />
                     <img src="images/icons/filled_star.png" />
                     <img src="images/icons/filled_star.png" />
                     <img src="images/icons/filled_star.png" />
                     <img src="images/icons/unfilled_star.png" />
-                 </spa>
-             </div>
-             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc imperdiet luctus suscipit.
-             </p>
+                    </spa>
+            </div>
+            <p class="review-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac
+                tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc
+                imperdiet luctus suscipit.
+            </p>
         </div>
         <div class="col-6 review">
             <div class="review-header row">
@@ -85,7 +87,9 @@
                     </spa>
             </div>
             <p class="review-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc imperdiet luctus suscipit.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet massa metus. Praesent ac
+                tincidunt ante. Donec at dictum tellus. Aenean vitae nisi eu nisl pulvinar pretium vel sed orci. Nunc
+                imperdiet luctus suscipit.
             </p>
         </div>
     </div>

@@ -1,10 +1,5 @@
 ﻿using ClientApp.Data;
 using ClientApp.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -12,9 +7,9 @@ namespace ClientApp.ViewModel
 {
     internal class LoginViewModel
     {
-        private Login login;
+        private readonly Login login;
         private Database db;
-        private LocalDatabase localdb;
+        private readonly LocalDatabase localdb;
 
         public LoginViewModel(Login login)
         {
@@ -58,27 +53,13 @@ namespace ClientApp.ViewModel
         {
             original.Background = Brushes.White;
             original.Foreground = Brushes.Black;
-            if (original.Text.Length > 0)
-            {
-                placeholder.Foreground = Brushes.Transparent;
-            }
-            else
-            {
-                placeholder.Foreground = Brushes.Gray;
-            }
+            placeholder.Foreground = original.Text.Length > 0 ? Brushes.Transparent : (Brush)Brushes.Gray;
         }
         public void RemovePhTxt(PasswordBox original, Label placeholder)
         {
             original.Background = Brushes.White;
             original.Foreground = Brushes.Black;
-            if (original.Password.Length > 0)
-            {
-                placeholder.Foreground = Brushes.Transparent;
-            }
-            else
-            {
-                placeholder.Foreground = Brushes.Gray;
-            }
+            placeholder.Foreground = original.Password.Length > 0 ? Brushes.Transparent : (Brush)Brushes.Gray;
         }
 
     }

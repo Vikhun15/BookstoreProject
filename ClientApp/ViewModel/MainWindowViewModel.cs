@@ -1,22 +1,20 @@
-﻿using System;
+﻿using ClientApp.Data;
+using ClientApp.Model;
+using ClientApp.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ClientApp.Data;
-using ClientApp.Model;
-using ClientApp.View;
 
 namespace ClientApp.ViewModel
 {
     internal class MainWindowViewModel
     {
-        private MainWindow window;
-        private Database db;
+        private readonly MainWindow window;
+        private readonly Database db;
         public List<Book> books;
 
         public MainWindowViewModel(MainWindow window)
@@ -27,16 +25,18 @@ namespace ClientApp.ViewModel
             books = db.GetBooks();
             GetBooks(window.books);
 
-            foreach(var category in books.Select(x => x.category).Distinct().OrderBy(x => x).ToList())
+            foreach (string category in books.Select(x => x.category).Distinct().OrderBy(x => x).ToList())
             {
-                CheckBox box = new CheckBox();
-                box.IsChecked = true;
-                box.Content = category;
+                CheckBox box = new CheckBox
+                {
+                    IsChecked = true,
+                    Content = category
+                };
                 box.Checked += (s, e) => Refresh();
                 box.Unchecked += (s, e) => Refresh();
-                window.categoryList.Items.Add(box);
+                _ = window.categoryList.Items.Add(box);
             }
-            window.priceSlider.Maximum = books.Select(x=>x.price).Max();
+            window.priceSlider.Maximum = books.Select(x => x.price).Max();
             window.priceSlider.Value = books.Select(x => x.price).Max();
             window.priceSlider.Minimum = books.Select(x => x.price).Min();
             window.price.TextChanged += (s, e) => PriceChanged();
@@ -44,18 +44,18 @@ namespace ClientApp.ViewModel
             window.cartBtn.Click += (s, e) =>
             {
                 window.cartWindow = new Cart(window.cart, window);
-                window.cartWindow.ShowDialog();
+                _ = window.cartWindow.ShowDialog();
             };
             window.finalizeBtn.Click += (s, e) =>
             {
                 if (window.loggedIn)
                 {
                     window.cartWindow = new Cart(window.cart, window);
-                    window.cartWindow.ShowDialog();
+                    _ = window.cartWindow.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show(window, "You have to log in to finalize the purchase!");
+                    _ = MessageBox.Show(window, "You have to log in to finalize the purchase!");
                     window.OpenLogin();
                 }
             };
@@ -84,25 +84,24 @@ namespace ClientApp.ViewModel
         public void OpenRegister()
         {
             Register reg = new Register(window);
-            reg.ShowDialog();
+            _ = reg.ShowDialog();
         }
 
         private void CheckLoggedIn()
         {
             LocalDatabase localdb = new LocalDatabase();
             string result = localdb.SavedUser();
-            if(result != "")
+            if (result != "")
             {
                 window.Login(result);
             }
         }
         private void PriceChanged()
         {
-            double result;
-            bool correct = double.TryParse(window.price.Text, out result);
+            bool correct = double.TryParse(window.price.Text, out double result);
             if ((correct && result <= window.priceSlider.Maximum && result >= window.priceSlider.Minimum) || window.price.Text.Length == 0)
             {
-                if(window.price.Text.Length > 0)
+                if (window.price.Text.Length > 0)
                 {
                     window.priceSlider.Value = result;
                 }
@@ -125,14 +124,7 @@ namespace ClientApp.ViewModel
 
         private void SearchBarChanged()
         {
-            if(window.searchbar.Text.Length != 0)
-            {
-                window.searchbarPh.Content = "";
-            }
-            else
-            {
-                window.searchbarPh.Content = "Search";
-            }
+            window.searchbarPh.Content = window.searchbar.Text.Length != 0 ? "" : (object)"Search";
             Refresh();
         }
 
@@ -140,11 +132,11 @@ namespace ClientApp.ViewModel
         {
             window.books.Clear();
 
-            foreach(Book book in books)
+            foreach (Book book in books)
             {
                 bool toAdd = true;
                 string sb = window.searchbar.Text;
-                if((book.title.Contains(sb) || book.category.Contains(sb)) && 
+                if ((book.title.Contains(sb) || book.category.Contains(sb)) &&
                     (book.price < window.priceSlider.Value))
                 {
                     toAdd = toAdd && true;
@@ -154,13 +146,14 @@ namespace ClientApp.ViewModel
                     toAdd = toAdd && false;
                     continue;
                 }
-                if(window.stockRad.IsChecked == true)
+                if (window.stockRad.IsChecked == true)
                 {
                     if (book.inStock)
                     {
                         toAdd = toAdd == true && true;
                     }
-                    else{
+                    else
+                    {
                         continue;
                     }
                 }
@@ -175,7 +168,7 @@ namespace ClientApp.ViewModel
                         continue;
                     }
                 }
-                foreach(CheckBox sender in window.categoryList.Items)
+                foreach (CheckBox sender in window.categoryList.Items)
                 {
                     if (sender.Content.ToString() == book.category)
                     {
@@ -191,11 +184,11 @@ namespace ClientApp.ViewModel
 
         private void AddToCart()
         {
-            if(window.booksGrid.SelectedItems.Count > 0)
+            if (window.booksGrid.SelectedItems.Count > 0)
             {
-                foreach(Book book in window.booksGrid.SelectedItems)
+                foreach (Book book in window.booksGrid.SelectedItems)
                 {
-                    if(book.quantity > 0)
+                    if (book.quantity > 0)
                     {
                         book.quantity--;
                         window.booksGrid.Items.Refresh();
@@ -206,8 +199,10 @@ namespace ClientApp.ViewModel
                         }
                         else
                         {
-                            Book nBook = new Book(book);
-                            nBook.quantity = 1;
+                            Book nBook = new Book(book)
+                            {
+                                quantity = 1
+                            };
                             window.cart.Add(nBook);
                             window.cartCount.Content = Convert.ToInt32(window.cartCount.Content) + 1;
                         }
@@ -218,7 +213,7 @@ namespace ClientApp.ViewModel
 
         public void GetBooks(ObservableCollection<Book> retBooks)
         {
-            foreach(var book in books)
+            foreach (Book book in books)
             {
                 retBooks.Add(book);
             }

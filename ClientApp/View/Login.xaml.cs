@@ -1,17 +1,5 @@
 ﻿using ClientApp.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ClientApp.View
 {
@@ -22,7 +10,7 @@ namespace ClientApp.View
     {
         public Login(MainWindow owner)
         {
-            this.Owner = owner;
+            Owner = owner;
             InitializeComponent();
             LoginViewModel vm = new LoginViewModel(this);
 
@@ -36,20 +24,20 @@ namespace ClientApp.View
                 if (vm.CheckUser(usernameTxt.Text, passwordTxt.Password))
                 {
                     vm.Checkboxes();
-                    MessageBox.Show(this, "Successfull login!");
-                    ((MainWindow)this.Owner).Login(usernameTxt.Text);
-                    this.Close();
+                    _ = MessageBox.Show(this, "Successfull login!");
+                    ((MainWindow)Owner).Login(usernameTxt.Text);
+                    Close();
                 }
                 else
                 {
-                    MessageBox.Show(this, "Invalid username or password!", "Invalid login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = MessageBox.Show(this, "Invalid username or password!", "Invalid login", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             };
 
             registerBtn.Click += (s, e) =>
             {
-                this.Close();
-                ((MainWindow)this.Owner).OpenRegister();
+                Close();
+                ((MainWindow)Owner).OpenRegister();
             };
         }
 

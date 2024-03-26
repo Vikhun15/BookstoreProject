@@ -7,13 +7,15 @@
     List<Book> books = mod.books;
 }
 
-@functions{
-    void RenderTable(List<Book> books){
-        foreach(Book book in books)
+@functions {
+    void RenderTable(List<Book> books)
+    {
+        foreach (Book book in books)
         {
             if (book.quantity > 0)
             {
-                                <script type="text/javascript">data.push(new Book(@book.id, '@book.title', '@book.category', @book.rating.ToString().Replace(',', '.'), @book.price.ToString().Replace(',', '.'), @book.inStock.ToString().ToLower(), @book.quantity))</script>
+                <script
+                    type="text/javascript">data.push(new Book(@book.id, '@book.title', '@book.category', @book.rating.ToString().Replace(',', '.'), @book.price.ToString().Replace(',', '.'), @book.inStock.ToString().ToLower(), @book.quantity))</script>
             }
         }
     }
@@ -43,10 +45,15 @@
 <div id="webshop">
     <div id="settings">
         <div id="price-range">
-            Price range: <input id="price-input" type="number" step="1" name="price" min="@books.Min(x => x.price).ToString().Replace(',', '.')" max="@books.Max(x => x.price).ToString().Replace(',', '.')"value="@books.Max(x=>x.price).ToString().Replace(',', '.')" />$
+            Price range: <input id="price-input" type="number" step="1" name="price"
+                min="@books.Min(x => x.price).ToString().Replace(',', '.')"
+                max="@books.Max(x => x.price).ToString().Replace(',', '.')"
+                value="@books.Max(x=>x.price).ToString().Replace(',', '.')" />$
         </div>
         <div id="price-slider">
-            <input type="range" step="0.01" min="@books.Min(x => x.price).ToString().Replace(',', '.')" max="@books.Max(x => x.price).ToString().Replace(',', '.')" value="@books.Max(x => x.price).ToString().Replace(',', '.')" class="slider" id="price-slider-input">
+            <input type="range" step="0.01" min="@books.Min(x => x.price).ToString().Replace(',', '.')"
+                max="@books.Max(x => x.price).ToString().Replace(',', '.')"
+                value="@books.Max(x => x.price).ToString().Replace(',', '.')" class="slider" id="price-slider-input">
         </div>
         <div id="checkboxes">
             <input type="checkbox" id="in-stock" value="In stock" />
@@ -54,31 +61,33 @@
         </div>
         <p>Categories</p>
         <div id="categories">
-        @{
-            int count = 1;
-        }
-        @foreach(string category in books.Select(x => x.category).Distinct().Order())
+            @{
+                int count = 1;
+            }
+            @foreach (string category in books.Select(x => x.category).Distinct().Order())
             {
-            <input class="category-checkboxes" type="checkbox" checked="true" id="@category@count" value="@category" />
-            <label for="@category@count">@category</label><br>
+                <input class="category-checkboxes" type="checkbox" checked="true" id="@category@count" value="@category" />
+                <label for="@category@count">@category</label>
+
+                <br>
             }
         </div>
     </div>
     <div id="webshop-table-container-top" class="webshop-table-container">
-    <table class="webshop-table">
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Rating</th>
-            <th>Price</th>
-        </tr>
-    </table>
+        <table class="webshop-table">
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Price</th>
+            </tr>
+        </table>
     </div>
     <div class="webshop-table-container">
-    <table id="webshop-table" class="webshop-table">
-        @{
-            RenderTable(books);
-        }
+        <table id="webshop-table" class="webshop-table">
+            @{
+                RenderTable(books);
+            }
         </table>
         <script>
             ReloadTable(data)
@@ -124,7 +133,8 @@
             </div>
         </div>
     </div>
-    <div id="transaction-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel" aria-hidden="true">
+    <div id="transaction-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,5 +177,3 @@
 
     });
     ReloadTable(data);</script>
-
-

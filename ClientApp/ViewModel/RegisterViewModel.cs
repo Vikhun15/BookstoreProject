@@ -1,11 +1,7 @@
 ﻿using ClientApp.Data;
 using ClientApp.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -14,8 +10,8 @@ namespace ClientApp.ViewModel
     internal class RegisterViewModel
     {
         private readonly Register reg;
-        Database db = new Database();
-        public RegisterViewModel(Register reg) 
+        private readonly Database db = new Database();
+        public RegisterViewModel(Register reg)
         {
             this.reg = reg;
         }

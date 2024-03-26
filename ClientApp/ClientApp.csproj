@@ -182,7 +182,6 @@
     </Compile>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\Model.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\Cart.xaml.cs">

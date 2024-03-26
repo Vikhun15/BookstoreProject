@@ -7,7 +7,7 @@ namespace ClientWeb.Models
         public int id { get; set; }
         public string title { get; set; }
         public string category { get; set; }
-        public double rating { get;set; }
+        public double rating { get; set; }
         public double price { get; set; }
         public bool inStock { get; set; }
         public int quantity { get; set; }
@@ -36,13 +36,13 @@ namespace ClientWeb.Models
 
         public Book(Book book)
         {
-            this.id = book.id;
-            this.title = book.title;
-            this.category = book.category;
-            this.rating = book.rating;
-            this.price = book.price;
-            this.inStock = book.inStock;
-            this.quantity = book.quantity;
+            id = book.id;
+            title = book.title;
+            category = book.category;
+            rating = book.rating;
+            price = book.price;
+            inStock = book.inStock;
+            quantity = book.quantity;
         }
     }
 }

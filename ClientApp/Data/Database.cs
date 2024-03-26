@@ -1,34 +1,28 @@
-﻿using System;
+﻿using ClientApp.Model;
+using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using Npgsql;
-using ClientApp.Model;
 
 namespace ClientApp.Data
 {
     internal class Database
     {
-        static private string connectionString;
-        static private NpgsqlConnection connection;
+        private static string connectionString;
+        private static NpgsqlConnection connection;
 
         public Database()
         {
             connectionString = "Host=surus.db.elephantsql.com;Port=5432;Database=iyqfkyce;User Id=iyqfkyce;Password=6VMoIXqvz4Ht3vkPeSPl9UgjqKHrz25y";
-
-
             try
             {
                 connection = new NpgsqlConnection(connectionString);
                 connection.Open();
             }
-            catch(NpgsqlException e)
+            catch (NpgsqlException)
             {
-                MessageBox.Show("ERROR: Couldn't connect to database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                //MessageBox.Show($"ERROR: {e.Message}", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = MessageBox.Show("ERROR: Couldn't connect to database!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -54,20 +48,22 @@ namespace ClientApp.Data
         public void Finalize(List<Book> books)
         {
 
-            NpgsqlCommand cmd = new NpgsqlCommand();
-            cmd.Connection = connection;
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                Connection = connection
+            };
 
-            foreach(Book book in books)
+            foreach (Book book in books)
             {
                 cmd.CommandText = $"UPDATE TABLE books SET quantity={book.quantity} WHERE id={book.id};";
-                cmd.ExecuteNonQuery();
+                _ = cmd.ExecuteNonQuery();
             }
 
         }
 
         public bool CheckUser(string username, string password)
         {
-            if(connection.State == System.Data.ConnectionState.Closed)
+            if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
             }
@@ -111,10 +107,12 @@ namespace ClientApp.Data
             int lastId = 0;
             List<User> users = new List<User>();
 
-            NpgsqlCommand start = new NpgsqlCommand("", connection);
-            start.CommandText = "SELECT id, username, email, password FROM clients;";
+            NpgsqlCommand start = new NpgsqlCommand("", connection)
+            {
+                CommandText = "SELECT id, username, email, password FROM clients;"
+            };
 
-            var reader = start.ExecuteReader();
+            NpgsqlDataReader reader = start.ExecuteReader();
             while (reader.Read())
             {
                 users.Add(new User(reader));
@@ -130,7 +128,7 @@ namespace ClientApp.Data
             string txt = $"INSERT INTO clients(id, username, email, password) " +
                               $"VALUES ({lastId}, '{username}', '{email}', '{password}');";
             NpgsqlCommand cmd = new NpgsqlCommand(txt, connection);
-            cmd.ExecuteNonQuery();
+            _ = cmd.ExecuteNonQuery();
         }
 
         public void Dispose()

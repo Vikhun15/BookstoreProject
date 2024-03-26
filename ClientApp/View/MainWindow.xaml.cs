@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ClientApp.Model;
+﻿using ClientApp.Model;
 using ClientApp.View;
 using ClientApp.ViewModel;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace ClientApp
 {
@@ -26,14 +14,14 @@ namespace ClientApp
     {
         public ObservableCollection<Book> books = new ObservableCollection<Book>();
         public ObservableCollection<Book> cart = new ObservableCollection<Book>();
-        MainWindowViewModel vm;
+        private readonly MainWindowViewModel vm;
         public Cart cartWindow;
         public bool loggedIn = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
             booksGrid.ItemsSource = books;
             vm = new MainWindowViewModel(this);
             price.Text = books.Select(x => x.price).Max().ToString();
@@ -45,11 +33,11 @@ namespace ClientApp
 
         public void Merge(ObservableCollection<Book> input)
         {
-            foreach(Book book in input)
+            foreach (Book book in input)
             {
-                foreach(Book book1 in books)
+                foreach (Book book1 in books)
                 {
-                    if(book.id == book1.id)
+                    if (book.id == book1.id)
                     {
                         book1.quantity += book.quantity;
                     }
@@ -62,7 +50,7 @@ namespace ClientApp
         public void OpenLogin()
         {
             Login login = new Login(this);
-            login.ShowDialog();
+            _ = login.ShowDialog();
         }
 
         public void OpenRegister()

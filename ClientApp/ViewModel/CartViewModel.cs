@@ -1,19 +1,15 @@
 ﻿using ClientApp.Data;
 using ClientApp.Model;
 using ClientApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClientApp.ViewModel
 {
     internal class CartViewModel
     {
-        private Cart cart;
-        private Database db;
+        private readonly Cart cart;
+        private readonly Database db;
         public CartViewModel(Cart cart)
         {
             this.cart = cart;
