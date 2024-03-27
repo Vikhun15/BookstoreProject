@@ -55,7 +55,7 @@ namespace ClientApp.Data
 
             foreach (Book book in books)
             {
-                cmd.CommandText = $"UPDATE TABLE books SET quantity={book.quantity} WHERE id={book.id};";
+                cmd.CommandText = $"UPDATE books SET quantity={book.quantity} WHERE id={book.id};";
                 _ = cmd.ExecuteNonQuery();
             }
 
